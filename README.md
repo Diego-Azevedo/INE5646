@@ -1,9 +1,7 @@
-# Quasar App (ine5646)
-
-Programação para Web.
+# Programação para Web INE5646
 
 Funcionalidade (em construção):
-- Exportar dados - de json para odt, csv, xlsx.
+- Exportar dados de json para odt, csv, xlsx (ou outro formato escolhido).
 - Preview do input do usuário.
 - Criar gráficos de acordo com o input do usuário.
 - Crud: cadastro de usuários. página de login.
@@ -14,10 +12,10 @@ Testar vulnerabilidades. Mostrar vulnerabilidades (anaĺise de sistema existente
 Servidor:
 idufsc.ufsc.br
 
-Stack/ Tecnologias
-vue.js
-quasar framework - css
-mongoDb
+Stack/ Tecnologias:
+vue.js - frontend.
+quasar framework - scss.
+mongoDb - banco de dados.
 node 18 - (nvm use 18).
 
 ## Install the dependencies
