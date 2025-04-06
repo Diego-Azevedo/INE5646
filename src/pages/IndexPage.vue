@@ -7,7 +7,9 @@
           filled
           type="textarea"
           v-model="jsonInput"
-          label="Input"
+          label="JSON"
+          class="custom-textarea"
+          input-class="force-height"
         />
       </div>
 
@@ -16,7 +18,7 @@
           filled
           type="textarea"
           v-model="jsonOutput"
-          label="Resultado"
+          label="Result"
           readonly
         />
       </div>
@@ -57,13 +59,12 @@ export default {
 </script>
 
 <style scoped>
-
-.input-textarea-large {
-  height: 80vh !important;
+.custom-textarea {
+  height: 60vh;
 }
 
-.input-textarea-large textarea {
+.custom-textarea .q-field__native {
+  min-height: 100% !important;
   height: 100% !important;
-  resize: none;
 }
 </style>
