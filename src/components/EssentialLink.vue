@@ -1,44 +1,52 @@
 <template>
   <q-item
+    v-if="isExternalLink"
     clickable
     tag="a"
+    :href="link"
     target="_blank"
-    :href="props.link"
   >
-    <q-item-section
-      v-if="props.icon"
-      avatar
-    >
-      <q-icon :name="props.icon" />
+    <q-item-section v-if="icon" avatar>
+      <q-icon :name="icon" />
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ props.title }}</q-item-label>
-      <q-item-label caption>{{ props.caption }}</q-item-label>
+      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label caption>{{ caption }}</q-item-label>
+    </q-item-section>
+  </q-item>
+
+  <q-item
+    v-else
+    clickable
+    tag="router-link"
+    :to="link"
+    @click="$emit('link-clicked')"
+  >
+    <q-item-section v-if="icon" avatar>
+      <q-icon :name="icon" />
+    </q-item-section>
+
+    <q-item-section>
+      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label caption>{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
-<script setup>
-const props = defineProps({
-  title: {
-    type: String,
-    required: true
+<script>
+export default {
+  name: 'EssentialLink',
+  props: {
+    title: String,
+    caption: String,
+    link: String,
+    icon: String
   },
-
-  caption: {
-    type: String,
-    default: ''
-  },
-
-  link: {
-    type: String,
-    default: '#'
-  },
-
-  icon: {
-    type: String,
-    default: ''
+  computed: {
+    isExternalLink() {
+      return this.link.startsWith('http')
+    }
   }
-})
+}
 </script>

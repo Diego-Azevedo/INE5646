@@ -49,6 +49,7 @@ export default {
   },
   methods: {
     onLogin() {
+      this.$router.push({ name: 'IndexPage' });
       console.log("Login", this.login);
     },
     onRegister() {
