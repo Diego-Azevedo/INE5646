@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header v-show="toolbarVisible" elevated>
       <q-toolbar>
-        <q-btn
+        <q-btn v-if="this.$route.name !== 'LoginPage'"
           flat
           dense
           round
@@ -15,7 +15,7 @@
           JsonConvert51
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>INE5646</div>
       </q-toolbar>
     </q-header>
 

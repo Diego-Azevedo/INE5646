@@ -3,24 +3,25 @@
     <div class="row q-col-gutter-xl items-start">
 
       <div class="col-12 col-md-6">
-        <q-input
-          filled
-          type="textarea"
-          v-model="jsonInput"
-          label="JSON"
-          class="custom-textarea"
-          input-class="force-height"
-        />
+        <textarea
+        type="text-area"
+        id="json-input"
+        v-model="jsonInput"
+        placeholder="JSON"
+        class="custom-textarea">
+      </textarea>
+
       </div>
 
       <div class="col-12 col-md-6">
-        <q-input
-          filled
-          type="textarea"
+        <textarea
+          type="text-area"
+          id="json-output"
           v-model="jsonOutput"
-          label="Result"
+          placeholder="Result"
           readonly
-        />
+          class="custom-textarea">
+        </textarea>
       </div>
     </div>
 
@@ -60,11 +61,19 @@ export default {
 
 <style scoped>
 .custom-textarea {
-  height: 60vh;
+  width: 100%; /* Ocupa toda a largura disponível */
+  height: 60vh; /* Altura responsiva */
+  resize: none; /* Remove o redimensionamento manual */
+  padding: 10px; /* Espaçamento interno */
+  border: 1px solid #ccc; /* Borda */
+  border-radius: 4px; /* Bordas arredondadas */
+  font-size: 16px; /* Tamanho da fonte */
+  box-sizing: border-box; /* Inclui padding e borda no tamanho total */
 }
 
-.custom-textarea .q-field__native {
-  min-height: 100% !important;
-  height: 100% !important;
+@media (max-width: 768px) {
+  .custom-textarea {
+    height: 40vh; /* Altura menor para telas pequenas */
+  }
 }
 </style>
