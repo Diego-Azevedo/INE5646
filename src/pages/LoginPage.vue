@@ -3,7 +3,7 @@
     <q-card class="q-pa-xl bg-secondary text-white shadow-10" style="width: 400px; border-radius: 18px">
       
       <div class="flex flex-center q-mb-md">
-        <img src="public/icons/jsonConvert51.svg" alt="JsonConvert51 Logo" width="48" height="48" />
+        <img src="../../public/icons/jsonConvert51.svg" alt="JsonConvert51 Logo" width="48" height="48" />
       </div>
 
       <div class="text-center text-h6 text-weight-bold q-mb-lg">JsonConvert51</div>
