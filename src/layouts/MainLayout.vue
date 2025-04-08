@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header v-show="toolbarVisible" elevated>
-      <q-toolbar>
+      <q-toolbar class="bg-secondary">
         <q-btn v-if="this.$route.name !== 'LoginPage'"
           flat
           dense
