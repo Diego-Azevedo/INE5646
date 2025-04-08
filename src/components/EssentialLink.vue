@@ -7,12 +7,12 @@
     target="_blank"
   >
     <q-item-section v-if="icon" avatar>
-      <q-icon :name="icon" />
+      <q-icon :name="icon" color="green-4"/>
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label class="text-white">{{ title }}</q-item-label>
+      <q-item-label caption class="text-grey-4">{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
 
@@ -24,12 +24,12 @@
     @click="$emit('link-clicked')"
   >
     <q-item-section v-if="icon" avatar>
-      <q-icon :name="icon" />
+      <q-icon :name="icon" color="green-4"/>
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label class="text-white">{{ title }}</q-item-label>
+      <q-item-label caption class="text-grey-4">{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>

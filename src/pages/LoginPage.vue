@@ -36,7 +36,7 @@
         </q-form>
         <div class="text-caption text-center">
           <span>Already have an account? </span>
-          <q-btn flat label="Entrar" class="text-green-4" @click="isLogin = true" />
+          <q-btn flat label="Login" class="text-green-4" @click="isLogin = true" />
         </div>
       </div>
     </q-card>

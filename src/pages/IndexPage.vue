@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl">
+  <q-page class="q-pa-xl bg-primary">
     <div class="row q-col-gutter-xl items-start">
 
       <div class="col-12 col-md-6">
@@ -27,7 +27,7 @@
 
     <div class="row justify-center q-mt-xl">
       <q-btn
-        color="primary"
+        color="green-4"
         label="Converter"
         @click="processJson"
         class="q-px-xl"
@@ -65,7 +65,7 @@ export default {
   height: 60vh; /* Altura responsiva */
   resize: none; /* Remove o redimensionamento manual */
   padding: 10px; /* Espaçamento interno */
-  border: 1px solid #ccc; /* Borda */
+  border: 2px solid #008b00; /* Borda */
   border-radius: 4px; /* Bordas arredondadas */
   font-size: 16px; /* Tamanho da fonte */
   box-sizing: border-box; /* Inclui padding e borda no tamanho total */
