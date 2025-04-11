@@ -3,25 +3,21 @@
     <div class="row q-col-gutter-xl items-start">
 
       <div class="col-12 col-md-6">
-        <textarea
-        type="text-area"
-        id="json-input"
-        v-model="jsonInput"
-        placeholder="JSON"
-        class="custom-textarea">
-      </textarea>
-
+        <codemirror
+          class="cm-editor"
+          v-model="jsonInput"
+          :style="{ height: '60vh', borderRadius: '8px', border: '2px solid #008b00' }"
+          placeholder="JSON de entrada"
+        />
       </div>
 
       <div class="col-12 col-md-6">
-        <textarea
-          type="text-area"
-          id="json-output"
+        <codemirror
           v-model="jsonOutput"
-          placeholder="Result"
-          readonly
-          class="custom-textarea">
-        </textarea>
+          :style="{ height: '60vh', borderRadius: '8px', border: '2px solid #008b00' }"
+          placeholder="Resultado CSV"
+          :read-only="true"
+        />
       </div>
     </div>
 
@@ -37,8 +33,13 @@
 </template>
 
 <script>
+import { Codemirror } from 'vue-codemirror'
+
 export default {
   name: 'IndexPage',
+  components: {
+    Codemirror
+  },
   data() {
     return {
       jsonInput: '',
@@ -47,33 +48,15 @@ export default {
   },
   methods: {
     processJson() {
-      try {
-        const parsed = 'Ainda não funciona XD'
-        this.jsonOutput = parsed
-      } catch (err) {
-        this.jsonOutput = 'Erro ao processar JSON: ' + err.message
-      }
+      return true;
     }
-  },
-  computed: {}
+  }
 }
 </script>
 
-<style scoped>
-.custom-textarea {
-  width: 100%; /* Ocupa toda a largura disponível */
-  height: 60vh; /* Altura responsiva */
-  resize: none; /* Remove o redimensionamento manual */
-  padding: 10px; /* Espaçamento interno */
-  border: 2px solid #008b00; /* Borda */
-  border-radius: 4px; /* Bordas arredondadas */
-  font-size: 16px; /* Tamanho da fonte */
-  box-sizing: border-box; /* Inclui padding e borda no tamanho total */
-}
-
-@media (max-width: 768px) {
-  .custom-textarea {
-    height: 40vh; /* Altura menor para telas pequenas */
-  }
+<style>
+.cm-editor {
+  background-color: white !important;
+  color: black !important;
 }
 </style>
