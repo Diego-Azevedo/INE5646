@@ -34,6 +34,7 @@
 
 <script>
 import { Codemirror } from 'vue-codemirror'
+import { convertJsonToCsv } from 'src/utils/jsonToCsv'
 
 export default {
   name: 'IndexPage',
@@ -48,7 +49,7 @@ export default {
   },
   methods: {
     processJson() {
-      return true;
+      this.jsonOutput = convertJsonToCsv(this.jsonInput)
     }
   }
 }
