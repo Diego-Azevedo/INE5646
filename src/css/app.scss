@@ -1,1 +1,11 @@
-// app global css in SCSS form
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// .q-btn, .q-item, .q-tooltip {
+//   font-family: 'Poppins', sans-serif;
+// }

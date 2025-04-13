@@ -1,7 +1,12 @@
 <template>
   <q-page class="q-pa-xl bg-primary">
-    <div class="row q-col-gutter-xl items-start">
 
+    <div class="q-px-md q-pb-sm q-gutter-sm text-center">
+      <h2 class="text-white q-mb-none">JSON Convert</h2>
+      <p class="text-subtitle2 text-white">A powerful tool to convert JSON into files and visual graphs efficiently and effortlessly.</p>
+    </div>
+
+    <div class="row q-col-gutter-xl items-start">
       <div class="col-12 col-md-6">
         <codemirror
           class="cm-editor"
