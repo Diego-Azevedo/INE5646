@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl bg-primary">
+  <q-page class="responsive-container bg-primary">
     <div class="q-px-md q-pb-sm q-gutter-sm text-center">
       <h2 class="text-white q-mb-none">JSON Convert</h2>
       <p class="text-subtitle2 text-white">
@@ -10,7 +10,16 @@
     <div class="row q-col-gutter-xl items-start">
       <div class="col-12 col-md-4">
         <div class="div-element bg-white q-pa-lg">
-          <h4 class="q-pa-none q-mb-md q-mt-none">Entrada</h4>
+          <div class="row items-center justify-between q-mb-sm">
+            <h4 class="q-pa-none q-mb-md q-mt-none">Json Entry</h4>
+            <q-btn
+              color="green-4"
+              label="Example"
+              class="q-mb-sm"
+              @click="generateExample"
+            />
+          </div>
+
           <codemirror
             class="cm-editor q-mx-auto"
             v-model="jsonInput"
@@ -45,8 +54,9 @@
 
 
 <script>
-import { Codemirror } from 'vue-codemirror'
-import { convertJsonToCsv } from 'src/utils/jsonToCsv'
+import { Codemirror } from 'vue-codemirror';
+import { convertJsonToCsv } from 'src/utils/jsonToCsv';
+import jsonExamples from 'src/data/jsonExamples';
 
 export default {
   name: 'IndexPage',
@@ -62,12 +72,27 @@ export default {
   methods: {
     processJson() {
       this.jsonOutput = convertJsonToCsv(this.jsonInput)
+    },
+    generateExample() {
+      const randomIndex = Math.floor(Math.random() * jsonExamples.length);
+      this.jsonInput = JSON.stringify(jsonExamples[randomIndex], null, 2);
     }
   }
 }
 </script>
 
 <style>
+
+.responsive-container {
+  padding: 48px !important;
+}
+
+@media (max-width: 728px) {
+  .responsive-container {
+    padding: 24px !important;
+  }
+}
+
 .cm-editor {
   background-color: white !important;
   color: black !important;

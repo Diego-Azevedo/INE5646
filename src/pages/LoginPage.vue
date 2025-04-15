@@ -1,12 +1,12 @@
 <template>
   <q-page class="flex flex-center bg-primary text-white">
-    <q-card class="q-pa-xl q-mx-md bg-secondary text-white shadow-10" style="width: 400px; border-radius: 18px">
+    <q-card class="responsive-container q-mx-lg bg-secondary text-white shadow-10" style="width: 400px; border-radius: 18px">
       
       <div class="flex flex-center q-mb-md">
         <img src="../../public/icons/jsonConvert51.svg" alt="JsonConvert51 Logo" width="48" height="48" />
       </div>
 
-      <div class="text-center text-h6 text-weight-bold q-mb-lg">JsonConvert51</div>
+      <div class="text-center text-h6 text-weight-bold q-mb-md">JsonConvert51</div>
 
       <div v-if="isLogin">
         <q-form @submit.prevent="onLogin">
@@ -72,3 +72,16 @@ export default {
   }
 };
 </script>
+
+<style>
+.responsive-container {
+  padding: 48px !important;
+}
+
+@media (max-width: 728px) {
+  .responsive-container {
+    padding: 24px !important;
+  }
+}
+
+</style>
