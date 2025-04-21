@@ -1,6 +1,6 @@
 <template>
   <q-page class="responsive-container bg-primary">
-    <div class="q-px-md q-pb-sm q-gutter-sm text-center">
+    <div class="q-px-md q-pb-md q-gutter-sm text-center">
       <h2 class="text-white q-mb-none">JSON Convert</h2>
       <p class="text-subtitle2 text-white">
         A powerful tool to convert JSON into files and visual graphs efficiently and effortlessly.
@@ -37,7 +37,26 @@
       </div>
 
       <div class="col-12 col-md-8">
+        <div>
+          <div class="q-gutter-sm q-mb-md flex">
+            <q-chip
+              v-for="option in conversionOptions"
+              :key="option.name"
+              clickable
+              :icon="option.icon"
+              :color="selectedConversion === option.name ? 'green-4' : 'grey-4'"
+              text-color="black"
+              @click="selectedConversion = option.name"
+            >
+              {{ option.label }}
+            </q-chip>
+          </div>
+
+        </div>
         <div class="div-element bg-white q-pa-lg">
+          <div class="row items-center justify-between q-mb-sm">
+            <h4 class="q-pa-none q-mb-md q-mt-none">Result</h4>
+          </div>
           <codemirror
             class="cm-editor q-mx-auto"
             v-model="jsonOutput"
@@ -66,7 +85,14 @@ export default {
   data() {
     return {
       jsonInput: '',
-      jsonOutput: ''
+      jsonOutput: '',
+      selectedConversion: 'table',
+      conversionOptions: [
+        { name: 'table', label: 'Table' },
+        { name: 'csv', label: 'CSV' },
+        { name: 'xml', label: 'XML' },
+        { name: 'visual', label: 'Graph' }
+      ]
     }
   },
   methods: {
