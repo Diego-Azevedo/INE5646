@@ -36,8 +36,8 @@
         </div>
       </div>
 
-      <div class="col-12 col-md-8">
-        <div>
+      <div class="col-12 col-md-8 responsive-responseContainer">
+        <div class="responsive-menuChoice">
           <div class="q-gutter-sm q-mb-md flex">
             <q-chip
               v-for="option in conversionOptions"
@@ -116,6 +116,14 @@ export default {
 @media (max-width: 728px) {
   .responsive-container {
     padding: 24px !important;
+  }
+  .responsive-responseContainer {
+    padding-top: 24px !important;
+  }
+  .responsive-menuChoice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

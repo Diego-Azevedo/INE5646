@@ -133,9 +133,11 @@ export default {
   methods: {
     onLogin() {
       // Lógica de login
+      this.$router.push({ name: 'IndexPage' });
     },
     onRegister() {
       // Lógica de registro
+      this.$router.push({ name: 'IndexPage' });
     }
   }
 };
