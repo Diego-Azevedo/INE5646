@@ -19,7 +19,6 @@
               @click="generateExample"
             />
           </div>
-
           <codemirror
             class="cm-editor q-mx-auto"
             v-model="jsonInput"
@@ -51,13 +50,16 @@
               {{ option.label }}
             </q-chip>
           </div>
-
         </div>
         <div class="div-element bg-white q-pa-lg">
           <div class="row items-center justify-between q-mb-sm">
             <h4 class="q-pa-none q-mb-md q-mt-none">Result</h4>
           </div>
-          <codemirror
+          <div v-if="selectedConversion === 'table'"
+            id="table-container" 
+            style="min-height: 40vh;">
+          </div>
+          <codemirror v-else
             class="cm-editor q-mx-auto"
             v-model="jsonOutput"
             placeholder="Result"
@@ -70,11 +72,10 @@
   </q-page>
 </template>
 
-
-
 <script>
 import { Codemirror } from 'vue-codemirror';
 import { convertJsonToCsv } from 'src/utils/jsonToCsv';
+import { csvToTable } from 'src/utils/csvToTable';
 import jsonExamples from 'src/data/jsonExamples';
 
 export default {
@@ -95,14 +96,25 @@ export default {
       ]
     }
   },
+  watch: {
+    selectedConversion() {
+      this.processJson();
+    }
+  },
   methods: {
     async processJson() {
       try {
         const jsonData = JSON.parse(this.jsonInput);
-        
+
+        const csv = await convertJsonToCsv(jsonData);
+
         if (this.selectedConversion === 'csv') {
-          const csv = await convertJsonToCsv(jsonData);
           this.jsonOutput = csv;
+        } else if (this.selectedConversion === 'table') {
+          this.jsonOutput = '';
+          this.$nextTick(() => {
+            csvToTable(csv, "table-container");
+          });
         } else {
           this.jsonOutput = JSON.stringify(jsonData, null, 2);
         }
@@ -119,9 +131,24 @@ export default {
 </script>
 
 <style>
-
 .responsive-container {
   padding: 48px !important;
+}
+.cm-editor {
+  background-color: white !important;
+  color: black !important;
+  border-radius: 8px;
+  border: 2px solid #c9cec9;
+  width: 100%;
+  height: 40vh;
+}
+.div-element {
+  border-radius: 8px;
+  border: 3px solid #000000;
+}
+.div-colunm {
+  height: 60vh;
+  overflow: auto;
 }
 
 @media (max-width: 728px) {
@@ -137,24 +164,4 @@ export default {
     justify-content: center;
   }
 }
-
-.cm-editor {
-  background-color: white !important;
-  color: black !important;
-  border-radius: 8px;
-  border: 2px solid #c9cec9;
-  width: 100%;
-  height: 40vh;
-}
-
-.div-element {
-  border-radius: 8px;
-  border: 3px solid #000000;
-}
-
-.div-colunm {
-  height: 60vh;
-  overflow: auto;
-}
-
 </style>
