@@ -86,18 +86,29 @@ export default {
     return {
       jsonInput: '',
       jsonOutput: '',
-      selectedConversion: 'table',
+      selectedConversion: 'csv',
       conversionOptions: [
-        { name: 'table', label: 'Table' },
         { name: 'csv', label: 'CSV' },
+        { name: 'table', label: 'Table' },
         { name: 'xml', label: 'XML' },
         { name: 'visual', label: 'Graph' }
       ]
     }
   },
   methods: {
-    processJson() {
-      this.jsonOutput = convertJsonToCsv(this.jsonInput)
+    async processJson() {
+      try {
+        const jsonData = JSON.parse(this.jsonInput);
+        
+        if (this.selectedConversion === 'csv') {
+          const csv = await convertJsonToCsv(jsonData);
+          this.jsonOutput = csv;
+        } else {
+          this.jsonOutput = JSON.stringify(jsonData, null, 2);
+        }
+      } catch (e) {
+        this.jsonOutput = 'Error processing JSON: ' + e.message;
+      }
     },
     generateExample() {
       const randomIndex = Math.floor(Math.random() * jsonExamples.length);
