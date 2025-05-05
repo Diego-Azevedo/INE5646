@@ -16,8 +16,10 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
+    "chart.js": "^4.4.9",
     "gridjs": "^6.2.0",
     "json-2-csv": "^5.5.9",
+    "papaparse": "^5.5.2",
     "quasar": "^2.16.0",
     "vue": "^3.4.18",
     "vue-codemirror": "^6.1.1",

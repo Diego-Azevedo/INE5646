@@ -55,10 +55,22 @@
           <div class="row items-center justify-between q-mb-sm">
             <h4 class="q-pa-none q-mb-md q-mt-none">Result</h4>
           </div>
+
+          <!-- Tabela -->
           <div v-if="selectedConversion === 'table'"
             id="table-container" 
             style="min-height: 40vh;">
           </div>
+
+          <!-- Gráfico -->
+          <div v-else-if="selectedConversion === 'graphic'"
+            class="q-pt-md flex flex-center"
+            style="min-height: 40vh;"
+          >
+            <canvas id="chart-container" width="600" height="400"></canvas>
+          </div>
+
+          <!-- XML ou CSV -->
           <codemirror v-else
             class="cm-editor q-mx-auto"
             v-model="jsonOutput"
@@ -76,6 +88,7 @@
 import { Codemirror } from 'vue-codemirror';
 import { convertJsonToCsv } from 'src/utils/jsonToCsv';
 import { csvToTable } from 'src/utils/csvToTable';
+import { csvToGraphic } from 'src/utils/csvToGraphic';
 import jsonExamples from 'src/data/jsonExamples';
 
 export default {
@@ -92,7 +105,7 @@ export default {
         { name: 'csv', label: 'CSV' },
         { name: 'table', label: 'Table' },
         { name: 'xml', label: 'XML' },
-        { name: 'visual', label: 'Graph' }
+        { name: 'graphic', label: 'Graphic' }
       ]
     }
   },
@@ -114,6 +127,11 @@ export default {
           this.jsonOutput = '';
           this.$nextTick(() => {
             csvToTable(csv, "table-container");
+          });
+        } else if (this.selectedConversion === 'graphic') {
+          this.jsonOutput = '';
+          this.$nextTick(() => {
+            csvToGraphic(csv, "chart-container");
           });
         } else {
           this.jsonOutput = JSON.stringify(jsonData, null, 2);
