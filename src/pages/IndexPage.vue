@@ -67,6 +67,15 @@
             class="q-pt-md flex flex-center"
             style="min-height: 40vh;"
           >
+            <q-select
+              filled
+              dense
+              label="Agrupar por"
+              v-model="chartKey"
+              :options="availableKeys"
+              class="q-mb-md"
+              @update:model-value="processJson"
+            />
             <canvas id="chart-container" width="600" height="400"></canvas>
           </div>
 
@@ -89,6 +98,7 @@ import { Codemirror } from 'vue-codemirror';
 import { convertJsonToCsv } from 'src/utils/jsonToCsv';
 import { csvToTable } from 'src/utils/csvToTable';
 import { csvToGraphic } from 'src/utils/csvToGraphic';
+import Papa from 'papaparse';
 import jsonExamples from 'src/data/jsonExamples';
 
 export default {
@@ -101,6 +111,8 @@ export default {
       jsonInput: '',
       jsonOutput: '',
       selectedConversion: 'csv',
+      chartKey: '', // chave escolhida pelo usuário
+      availableKeys: [], // lista de chaves possíveis, preenchida dinamicamente
       conversionOptions: [
         { name: 'csv', label: 'CSV' },
         { name: 'table', label: 'Table' },
@@ -129,9 +141,17 @@ export default {
             csvToTable(csv, "table-container");
           });
         } else if (this.selectedConversion === 'graphic') {
-          this.jsonOutput = '';
+          const { meta } = Papa.parse(csv, { header: true, preview: 1 });
+          this.availableKeys = meta.fields;
+
+          console.log('keys', this.availableKeys);
+
+          if (!this.chartKey) {
+            this.chartKey = meta.fields[0]; // chave padrão
+          }
+
           this.$nextTick(() => {
-            csvToGraphic(csv, "chart-container");
+            csvToGraphic(csv, 'chart-container', this.chartKey);
           });
         } else {
           this.jsonOutput = JSON.stringify(jsonData, null, 2);

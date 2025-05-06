@@ -1,68 +1,62 @@
-// import Papa from 'papaparse';
-// import {
-//   Chart,
-//   BarController,
-//   BarElement,
-//   CategoryScale,
-//   LinearScale,
-//   Tooltip,
-//   Legend,
-//   Title
-// } from 'chart.js';
+import Papa from 'papaparse';
+import {
+  Chart,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+  Title
+} from 'chart.js';
 
-// // Registrando os elementos do gráfico
-// Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
+// Registrando os elementos do gráfico
+Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
 
-// let currentChartInstance = null;
+let currentChartInstance = null;
 
-// export function csvToGraphic(csv, canvasId) {
-//   // Parse do CSV com cabeçalhos
-//   const { data } = Papa.parse(csv, { header: true, skipEmptyLines: true });
+export function csvToGraphic(csv, canvasId, key) {
+  const { data } = Papa.parse(csv, { header: true, skipEmptyLines: true });
 
-//   if (!data.length) return;
+  if (!data.length || !key) return;
 
-//   // Exemplo: agrupar por status e contar
-//   const statusCounts = {};
+  const valueCounts = {};
 
-//   data.forEach(row => {
-//     const status = row['data.athlete.responsible.teamContract.installments.status'] || 'UNKNOWN';
-//     statusCounts[status] = (statusCounts[status] || 0) + 1;
-//   });
+  // conta quantas vezes cada valor aparece na coluna especificada
+  data.forEach(row => {
+    const value = row[key] || 'UNKNOWN';
+    valueCounts[value] = (valueCounts[value] || 0) + 1;
+  });
 
-//   const labels = Object.keys(statusCounts);
-//   const values = Object.values(statusCounts);
+  const labels = Object.keys(valueCounts);
+  const values = Object.values(valueCounts);
 
-//   const ctx = document.getElementById(canvasId);
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
 
-//   if (!ctx) return;
+  if (currentChartInstance) {
+    currentChartInstance.destroy();
+  }
 
-//   // Destroi o gráfico anterior, se houver
-//   if (currentChartInstance) {
-//     currentChartInstance.destroy();
-//   }
-
-//   // Cria novo gráfico de barras
-//   currentChartInstance = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//       labels,
-//       datasets: [{
-//         label: 'Quantidade por Status',
-//         data: values,
-//         backgroundColor: '#42A5F5'
-//       }]
-//     },
-//     options: {
-//       responsive: true,
-//       plugins: {
-//         legend: {
-//           position: 'top'
-//         },
-//         title: {
-//           display: true,
-//           text: 'Distribuição de Status das Parcelas'
-//         }
-//       }
-//     }
-//   });
-// }
+  currentChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: `Distribuição por ${key}`,
+        data: values,
+        backgroundColor: '#42A5F5'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'top' },
+        title: {
+          display: true,
+          text: `Distribuição por ${key}`
+        }
+      }
+    }
+  });
+}
