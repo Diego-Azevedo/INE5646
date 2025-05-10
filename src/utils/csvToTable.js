@@ -30,7 +30,7 @@ export function csvToTable(csvText, containerId = 'table-container') {
       data: rows,
       pagination: {
         enabled: true,
-        limit: 10,
+        limit: 8,
       },
       search: false,
       sort: true,

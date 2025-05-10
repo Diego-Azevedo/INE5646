@@ -10,7 +10,6 @@ import {
   Title
 } from 'chart.js';
 
-// Registrando os elementos do gráfico
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
 
 let currentChartInstance = null;
@@ -22,7 +21,6 @@ export function csvToGraphic(csv, canvasId, key) {
 
   const valueCounts = {};
 
-  // conta quantas vezes cada valor aparece na coluna especificada
   data.forEach(row => {
     const value = row[key] || 'UNKNOWN';
     valueCounts[value] = (valueCounts[value] || 0) + 1;
@@ -50,6 +48,7 @@ export function csvToGraphic(csv, canvasId, key) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: { position: 'top' },
         title: {

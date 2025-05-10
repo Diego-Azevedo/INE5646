@@ -1,15 +1,34 @@
 <template>
   <q-page class="responsive-container bg-primary">
     <div class="q-px-md q-pb-md q-gutter-sm text-center">
-      <h2 class="text-white q-mb-none">JSON Convert</h2>
+      <h2 class="text-white q-mb-none">
+        JSON Convert
+      </h2>
       <p class="text-subtitle2 text-white">
-        A powerful tool to convert JSON into files and visual graphs efficiently and effortlessly.
+        Convert JSON into tables, files, or charts with ease and speed.
       </p>
+      <!-- convert options -->
+      <div class="q-gutter-sm q-mt-md flex justify-center flex-wrap">
+        <q-chip
+          v-for="option in conversionOptions"
+          :key="option.name"
+          clickable
+          :color="selectedConversion === option.name ? 'green-4' : 'white'"
+          :text-color="selectedConversion === option.name ? 'white' : 'black'"
+          class="q-px-md q-py-sm text-weight-medium"
+          @click="selectedConversion = option.name"
+          style="border: 1px solid #ccc;"
+        >
+          {{ option.label }}
+        </q-chip>
+      </div>
     </div>
 
-    <div class="row q-col-gutter-xl items-start">
+    <div class="row q-col-gutter-xl items-stretch">
+      
+      <!-- json Input -->
       <div class="col-12 col-md-4">
-        <div class="div-element bg-white q-pa-lg">
+        <div class="div-input-output fixed-height bg-white q-pa-lg">
           <div class="row items-center justify-between q-mb-sm">
             <h4 class="q-pa-none q-mb-md q-mt-none">Json Entry</h4>
             <q-btn
@@ -27,7 +46,7 @@
           <div class="row justify-center q-mt-lg">
             <q-btn
               color="green-4"
-              label="Converter"
+              label="Convert"
               @click="processJson"
               class="full-width"
             />
@@ -35,57 +54,52 @@
         </div>
       </div>
 
+      <!-- json Output -->
       <div class="col-12 col-md-8 responsive-responseContainer">
-        <div class="responsive-menuChoice">
-          <div class="q-gutter-sm q-mb-md flex">
-            <q-chip
-              v-for="option in conversionOptions"
-              :key="option.name"
-              clickable
-              :icon="option.icon"
-              :color="selectedConversion === option.name ? 'green-4' : 'grey-4'"
-              text-color="black"
-              @click="selectedConversion = option.name"
-            >
-              {{ option.label }}
-            </q-chip>
-          </div>
-        </div>
-        <div class="div-element bg-white q-pa-lg">
+        <div class="div-input-output fixed-height bg-white q-pa-lg">
           <div class="row items-center justify-between q-mb-sm">
-            <h4 class="q-pa-none q-mb-md q-mt-none">Result</h4>
+            <h4 class="q-pa-none q-mb-md q-mt-none">
+              Result
+            </h4>
+            <div v-if="selectedConversion === 'chart'" class="row items-center">
+              <q-select
+                filled
+                dense
+                outlined
+                v-model="chartKey"
+                :options="availableKeys"
+                label="Group by"
+                @update:model-value="processJson"
+              >
+                <template v-slot:append>
+                  <q-icon name="bar_chart" class="text-green-4" />
+                </template>
+              </q-select>
+            </div>
           </div>
 
-          <!-- Tabela -->
+          <!-- table -->
           <div v-if="selectedConversion === 'table'"
             id="table-container" 
-            style="min-height: 40vh;">
+            class="flex-fill overflow-auto">
           </div>
 
-          <!-- Gráfico -->
-          <div v-else-if="selectedConversion === 'graphic'"
-            class="q-pt-md flex flex-center"
-            style="min-height: 40vh;"
-          >
-            <q-select
-              filled
-              dense
-              label="Agrupar por"
-              v-model="chartKey"
-              :options="availableKeys"
-              class="q-mb-md"
-              @update:model-value="processJson"
-            />
-            <canvas id="chart-container" width="600" height="400"></canvas>
+          <!-- chart -->
+          <div v-else-if="selectedConversion === 'chart'"
+            class="q-pt-md flex flex-center flex-fill">
+            <div class="full-width">
+              <canvas id="chart-container" 
+                class="full-width canva">
+              </canvas>
+            </div>
           </div>
 
-          <!-- XML ou CSV -->
+          <!-- XML or CSV -->
           <codemirror v-else
-            class="cm-editor q-mx-auto"
+            class="cm-editor q-mx-auto flex-fill"
             v-model="jsonOutput"
             placeholder="Result"
             :read-only="true"
-            style="height: 60vh"
           />
         </div>
       </div>
@@ -111,13 +125,13 @@ export default {
       jsonInput: '',
       jsonOutput: '',
       selectedConversion: 'csv',
-      chartKey: '', // chave escolhida pelo usuário
-      availableKeys: [], // lista de chaves possíveis, preenchida dinamicamente
+      chartKey: '',
+      availableKeys: [],
       conversionOptions: [
         { name: 'csv', label: 'CSV' },
         { name: 'table', label: 'Table' },
         { name: 'xml', label: 'XML' },
-        { name: 'graphic', label: 'Graphic' }
+        { name: 'chart', label: 'chart' }
       ]
     }
   },
@@ -140,14 +154,14 @@ export default {
           this.$nextTick(() => {
             csvToTable(csv, "table-container");
           });
-        } else if (this.selectedConversion === 'graphic') {
+        } else if (this.selectedConversion === 'chart') {
           const { meta } = Papa.parse(csv, { header: true, preview: 1 });
           this.availableKeys = meta.fields;
 
           console.log('keys', this.availableKeys);
 
           if (!this.chartKey) {
-            this.chartKey = meta.fields[0]; // chave padrão
+            this.chartKey = meta.fields[0];
           }
 
           this.$nextTick(() => {
@@ -178,17 +192,28 @@ export default {
   border-radius: 8px;
   border: 2px solid #c9cec9;
   width: 100%;
-  height: 40vh;
+  height: 100%;
+  min-height: 40vh;
 }
-.div-element {
+.div-input-output {
   border-radius: 8px;
   border: 3px solid #000000;
+  display: flex;
+  flex-direction: column;
 }
-.div-colunm {
-  height: 60vh;
-  overflow: auto;
+.canva {
+  max-height: 500px;
+  height: 500px;
+  width: 100%;
 }
-
+.fixed-height {
+  min-height: 60vh;
+  max-height: 60vh;
+  height: 100%;
+}
+.flex-fill {
+  flex: 1;
+}
 @media (max-width: 728px) {
   .responsive-container {
     padding: 24px !important;
@@ -196,10 +221,9 @@ export default {
   .responsive-responseContainer {
     padding-top: 24px !important;
   }
-  .responsive-menuChoice {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .canva {
+    max-height: 350px;
+    height: 350px;
   }
 }
 </style>
