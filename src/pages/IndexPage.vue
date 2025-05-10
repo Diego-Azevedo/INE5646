@@ -4,7 +4,7 @@
       <h2 class="text-white q-mb-none">
         JSON Convert
       </h2>
-      <p class="text-subtitle2 text-white">
+      <p class="text-white">
         Convert JSON into tables, files, or charts with ease and speed.
       </p>
       <!-- convert options -->
@@ -215,6 +215,12 @@ export default {
   flex: 1;
 }
 @media (max-width: 728px) {
+  h2 {
+    font-size: 28px;
+  }
+  h4 {
+    font-size: 24px;
+  }
   .responsive-container {
     padding: 24px !important;
   }
@@ -224,6 +230,12 @@ export default {
   .canva {
     max-height: 350px;
     height: 350px;
+  }
+  .cm-editor {
+    height: 40vh;
+  }
+  .fixed-height {
+    max-height: 75vh;
   }
 }
 </style>
