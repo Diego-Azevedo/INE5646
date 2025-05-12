@@ -58,12 +58,12 @@ export default {
   data() {
     return {
       linksList: [
-        {
-          title: 'Github',
-          caption: 'github.com/INE5646',
-          icon: 'code',
-          link: 'https://github.com/Diego-Azevedo/INE5646'
-        },
+        // {
+        //   title: 'Github',
+        //   caption: 'github.com/INE5646',
+        //   icon: 'code',
+        //   link: 'https://github.com/Diego-Azevedo/INE5646'
+        // },
         {
           title: 'Login',
           caption: 'Área de login',
