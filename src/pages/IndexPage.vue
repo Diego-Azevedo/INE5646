@@ -183,6 +183,9 @@ export default {
 </script>
 
 <style>
+h1 {
+  font-size: 18px;
+}
 .responsive-container {
   padding: 48px !important;
 }
