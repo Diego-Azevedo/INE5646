@@ -86,7 +86,7 @@
 
           <!-- chart -->
           <div v-else-if="selectedConversion === 'chart'"
-            class="q-pt-md flex flex-center flex-fill">
+            class="flex flex-center flex-fill">
             <div class="full-width">
               <canvas id="chart-container" 
                 class="full-width canva">
@@ -202,8 +202,8 @@ export default {
   flex-direction: column;
 }
 .canva {
-  max-height: 500px;
-  height: 500px;
+  max-height: 400px;
+  height: 100%;
   width: 100%;
 }
 .fixed-height {
