@@ -184,7 +184,7 @@ export default {
 
 <style>
 h1 {
-  font-size: 18px;
+  font-size: 40px;
 }
 .responsive-container {
   padding: 48px !important;
