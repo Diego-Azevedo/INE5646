@@ -1,11 +1,11 @@
 <template>
   <q-page class="responsive-container bg-primary">
     <div class="q-px-md q-pb-md q-gutter-sm text-center">
-      <h2 class="text-white q-mb-none">
+      <h1 class="text-white q-mb-none">
         JSON Convert
-      </h2>
+      </h1>
       <p class="text-white">
-        Convert JSON into tables, files, or charts with ease and speed.
+        Convert JSON into csv, table, or charts with ease and speed.
       </p>
       <!-- convert options -->
       <div class="q-gutter-sm q-mt-md flex justify-center flex-wrap">
@@ -215,7 +215,7 @@ export default {
   flex: 1;
 }
 @media (max-width: 728px) {
-  h2 {
+  h1 {
     font-size: 28px;
   }
   h4 {
