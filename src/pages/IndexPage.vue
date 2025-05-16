@@ -57,25 +57,36 @@
       <!-- json Output -->
       <div class="col-12 col-md-8 responsive-responseContainer">
         <div class="div-input-output fixed-height bg-white q-pa-lg">
-          <div class="row items-center justify-between q-mb-sm">
-            <h4 class="q-pa-none q-mb-md q-mt-none">
+          <div class="row items-center justify-between">
+            <h4 class="q-pa-none q-mb-sm q-mt-none">
               Result
             </h4>
-            <div v-if="selectedConversion === 'chart'" class="row items-center">
-              <q-select
-                filled
-                dense
-                outlined
-                v-model="chartKey"
-                :options="availableKeys"
-                label="Group by"
-                @update:model-value="processJson"
-              >
-                <template v-slot:append>
-                  <q-icon name="bar_chart" class="text-green-4" />
-                </template>
-              </q-select>
-            </div>
+            <q-btn v-if="selectedConversion === 'chart' || selectedConversion === 'table'"
+              label="Download PDF"
+              icon="download"
+              color="green-4"
+              class="q-mb-sm"
+              @click="downloadPdf"
+            />
+          </div>
+
+          <q-separator></q-separator>
+
+          <div v-if="selectedConversion === 'chart'" class="row items-center q-mt-sm">
+            <q-select
+              filled
+              dense
+              outlined
+              v-model="chartKey"
+              :options="availableKeys"
+              label="Group by"
+              :style="{ minWidth: '150px' }"
+              @update:model-value="processJson"
+            >
+              <template v-slot:append>
+                <q-icon name="bar_chart" class="text-green-4" />
+              </template>
+            </q-select>
           </div>
 
           <!-- table -->
@@ -114,6 +125,7 @@ import { csvToTable } from 'src/utils/csvToTable';
 import { csvToGraphic } from 'src/utils/csvToGraphic';
 import Papa from 'papaparse';
 import jsonExamples from 'src/data/jsonExamples';
+import html2pdf from 'html2pdf.js';
 
 export default {
   name: 'IndexPage',
@@ -144,9 +156,7 @@ export default {
     async processJson() {
       try {
         const jsonData = JSON.parse(this.jsonInput);
-
         const csv = await convertJsonToCsv(jsonData);
-
         if (this.selectedConversion === 'csv') {
           this.jsonOutput = csv;
         } else if (this.selectedConversion === 'table') {
@@ -157,18 +167,14 @@ export default {
         } else if (this.selectedConversion === 'chart') {
           const { meta } = Papa.parse(csv, { header: true, preview: 1 });
           this.availableKeys = meta.fields;
-
-          console.log('keys', this.availableKeys);
-
           if (!this.chartKey) {
             this.chartKey = meta.fields[0];
           }
-
           this.$nextTick(() => {
             csvToGraphic(csv, 'chart-container', this.chartKey);
           });
         } else {
-          this.jsonOutput = JSON.stringify(jsonData, null, 2);
+          this.jsonOutput = 'Not implemented yet';
         }
       } catch (e) {
         this.jsonOutput = 'Error processing JSON: ' + e.message;
@@ -177,7 +183,47 @@ export default {
     generateExample() {
       const randomIndex = Math.floor(Math.random() * jsonExamples.length);
       this.jsonInput = JSON.stringify(jsonExamples[randomIndex], null, 2);
-    }
+    },
+    downloadPdf() {
+      let elementId = '';
+      if (this.selectedConversion === 'table') {
+        elementId = 'table-container';
+      } else if (this.selectedConversion === 'chart') {
+        elementId = 'chart-container';
+      }
+
+      const isMobile = window.matchMedia('(max-width: 728px)').matches;
+      const element = document.getElementById(elementId);
+
+      let totalWidth = 0;
+      if (this.selectedConversion === 'table' && element) {
+        const table = element.querySelector('table');
+        if (table) {
+          totalWidth = table.getBoundingClientRect().width;
+          console.log('Tabela tem largura de:', totalWidth, 'px');
+        }
+      }
+
+      let pageFormat = 'a4';
+      if (totalWidth > 1200) {
+        pageFormat = 'a2';
+      } else if (totalWidth > 900) {
+        pageFormat = 'a3';
+      }
+
+      const opt = {
+        margin: 0.5,
+        filename: 'result.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 3 },
+        jsPDF: { 
+          unit: 'in',
+          format: pageFormat,
+          orientation: isMobile ? 'portrait' : 'landscape'
+        }
+      };
+      html2pdf().set(opt).from(element).save();
+    },
   }
 }
 </script>
