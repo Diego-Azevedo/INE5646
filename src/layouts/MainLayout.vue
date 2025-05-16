@@ -65,11 +65,23 @@ export default {
         //   link: 'https://github.com/Diego-Azevedo/INE5646'
         // },
         {
+          title: 'Home',
+          caption: 'Home page',
+          icon: 'home',
+          link: '/'
+        },
+        {
           title: 'Login',
-          caption: 'Área de login',
+          caption: 'Login area',
           icon: 'login',
           link: '/login'
-        }
+        },
+        {
+          title: 'About',
+          caption: 'About the project',
+          icon: 'info',
+          link: '/about'
+        },
       ],
       leftDrawerOpen: false,
       toolbarVisible: true
