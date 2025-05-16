@@ -11,7 +11,11 @@ export function csvToTable(csvText, containerId = 'table-container') {
       throw new Error('Invalid CSV, missing data.');
     }
 
-    const headers = lines[0].split(',').map(header => header.trim());
+    const headers = lines[0].split(',').map(header => ({
+      name: header.trim(),
+      autoWidth: true,
+    }));
+    
     const rows = lines.slice(1).map(line => line.split(',').map(cell => cell.trim()));
 
     const container = document.getElementById(containerId);
@@ -28,13 +32,8 @@ export function csvToTable(csvText, containerId = 'table-container') {
     gridInstance = new Grid({
       columns: headers,
       data: rows,
-      pagination: {
-        enabled: true,
-        limit: 8,
-      },
       search: false,
       sort: true,
-      autoWidth: true,
       className: {
         table: 'table table-bordered table-striped'
       }
