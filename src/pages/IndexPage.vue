@@ -211,10 +211,15 @@ export default {
         pageFormat = 'a3';
       }
 
+      const quality = this.selectedConversion === 'table' ? 0.2 : 0.98;
+
       const opt = {
         margin: 0.5,
         filename: 'result.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { 
+          type: 'jpeg',
+          quality: quality
+        },
         html2canvas: { scale: 3 },
         jsPDF: { 
           unit: 'in',
