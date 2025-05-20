@@ -2,7 +2,7 @@
   <q-page class="responsive-container bg-primary">
     <div class="q-px-md q-pb-md q-gutter-sm text-center">
       <h1 class="text-white q-mb-none">
-        JSON Convert
+        Convert JSON to CSV, Table or Chart
       </h1>
       <p class="text-white">
         Convert JSON into csv, table, or charts with ease and speed.
@@ -142,7 +142,6 @@ export default {
       conversionOptions: [
         { name: 'csv', label: 'CSV' },
         { name: 'table', label: 'Table' },
-        { name: 'xml', label: 'XML' },
         { name: 'chart', label: 'chart' }
       ]
     }

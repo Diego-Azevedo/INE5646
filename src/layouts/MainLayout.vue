@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          JsonConvert
+          JsonConverter
         </q-toolbar-title>
 
         <div>INE5646</div>

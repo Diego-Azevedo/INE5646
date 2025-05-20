@@ -2,10 +2,10 @@
   <q-page class="responsive-container bg-primary text-white">
     <div class="q-px-md q-py-lg">
       <h1 class="text-white text-center q-mb-md">
-        About JSON Convert
+        About JSON Converter
       </h1>
       <p class="text-body1 q-mb-md text-center">
-        JSON Convert is a powerful and intuitive online tool that allows you to convert JSON data into various formats like <strong>CSV</strong>, <strong>tables</strong>, <strong>charts</strong>, and soon <strong>XML</strong>. Designed for developers, analysts, and data enthusiasts, this system ensures a smooth experience in viewing and manipulating structured data.
+        JSON Converter is a powerful and intuitive online tool that allows you to convert JSON data into various formats like <strong>CSV</strong>, <strong>tables</strong>, <strong>charts</strong>, and soon <strong>XML</strong>. Designed for developers, analysts, and data enthusiasts, this system ensures a smooth experience in viewing and manipulating structured data.
       </p>
 
       <q-separator dark spaced class="q-my-lg" />
@@ -21,16 +21,44 @@
         </ul>
       </div>
 
-      <!-- Release Notes -->
+     <!-- Release Notes -->
       <div class="q-mb-xl">
         <h2 class="text-h5 text-white">Release Timeline</h2>
         <q-timeline color="green-4" layout="dense">
-          <q-timeline-entry title="Project Created" subtitle="24/03" />
-          <q-timeline-entry title="Chart Visualization Implemented" subtitle="06/05" />
-          <q-timeline-entry title="PDF Download Button Added" subtitle="15/05" />
-          <q-timeline-entry title="Upcoming: XML Conversion Support" subtitle="Planned" />
-          <q-timeline-entry title="Upcoming: New Chart Models" subtitle="Planned" />
-          <q-timeline-entry title="Upcoming: Export CSV to Excel" subtitle="Planned" />
+
+          <!-- Realizados -->
+          <q-timeline-entry title="Project Created" subtitle="24/03" icon="check_circle" icon-color="green-4" />
+          <q-timeline-entry title="Chart Visualization Implemented" subtitle="06/05" icon="insert_chart" icon-color="green-4" />
+          <q-timeline-entry title="PDF Download Button Added" subtitle="15/05" icon="picture_as_pdf" icon-color="green-4" />
+
+          <!-- Planejados (com ícone de borda) -->
+          <q-timeline-entry subtitle="Planned">
+            <template #title>
+              <div>Upcoming: XML Conversion Support</div>
+            </template>
+            <template #icon>
+              <q-icon name="mdi-file-xml-outline" class="text-grey-6" style="border: 2px solid currentColor; border-radius: 50%; padding: 6px;" />
+            </template>
+          </q-timeline-entry>
+
+          <q-timeline-entry subtitle="Planned">
+            <template #title>
+              <div>Upcoming: New Chart Models</div>
+            </template>
+            <template #icon>
+              <q-icon name="mdi-chart-line-variant" class="text-grey-6" style="border: 2px solid currentColor; border-radius: 50%; padding: 6px;" />
+            </template>
+          </q-timeline-entry>
+
+          <q-timeline-entry subtitle="Planned">
+            <template #title>
+              <div>Upcoming: Export CSV to Excel</div>
+            </template>
+            <template #icon>
+              <q-icon name="mdi-file-excel-outline" class="text-grey-6" style="border: 2px solid currentColor; border-radius: 50%; padding: 6px;" />
+            </template>
+          </q-timeline-entry>
+
         </q-timeline>
       </div>
 

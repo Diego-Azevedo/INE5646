@@ -14,7 +14,7 @@
       </div>
 
       <div class="text-center text-h6 text-weight-bold q-mb-md">
-        JsonConvert
+        JsonConverter
       </div>
 
       <q-slide-transition>
