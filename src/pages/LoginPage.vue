@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center bg-primary text-white">
     <q-card
-      class="responsive-container q-mx-lg bg-secondary text-white shadow-10"
+      class="q-mx-lg bg-secondary text-white shadow-10"
       style="width: 400px; border-radius: 18px"
     >
       <div class="flex flex-center q-mb-md">
@@ -14,11 +14,11 @@
       </div>
 
       <div class="text-center text-h6 text-weight-bold q-mb-md">
-        JsonConverter
+        JsonConvert
       </div>
 
       <q-slide-transition>
-        <div v-show="isLogin" key="login">
+        <div v-show="isLogin" key="login" class="q-ma-lg">
           <q-form @submit.prevent="onLogin">
             <span>Email address</span>
             <q-input
@@ -57,7 +57,7 @@
       </q-slide-transition>
 
       <q-slide-transition>
-        <div v-show="!isLogin" key="register">
+        <div v-show="!isLogin" key="register" class="q-ma-lg">
           <q-form @submit.prevent="onRegister">
             <span>Name</span>
             <q-input
@@ -114,6 +114,7 @@
 </template>
 
 <script>
+import { login, register } from '../api/auth';
 export default {
   data() {
     return {
@@ -131,13 +132,45 @@ export default {
     };
   },
   methods: {
-    onLogin() {
-      // Lógica de login
-      this.$router.push({ name: 'IndexPage' });
+    async onLogin() {
+      try {
+        const response = await login(this.login);
+        console.log('Login bem-sucedido:', response.data);
+
+        this.$q.notify({
+          type: 'positive',
+          message: 'Login bem-sucedido!'
+        });
+        setTimeout(() => {
+          this.$router.push({ name: 'IndexPage' });
+        }, 2000);
+      } catch (error) {
+        this.$q.notify({
+          type: 'negative',
+          message: error.response?.data?.message || 'Erro ao fazer login'
+        });
+        console.error('Erro ao fazer login:', error.response?.data || error.message);
+      }
     },
-    onRegister() {
-      // Lógica de registro
-      this.$router.push({ name: 'IndexPage' });
+    async onRegister() {
+      try {
+        const response = await register(this.login);
+        console.log('Registro bem-sucedido:', response.data);
+
+        this.$q.notify({
+          type: 'positive',
+          message: 'Você se cadastrou!'
+        });
+        setTimeout(() => {
+          this.$router.push({ name: 'IndexPage' });
+        }, 2000);
+      } catch (error) {
+        this.$q.notify({
+          type: 'negative',
+          message: error.response?.data?.message || 'Erro ao se registrar'
+        });
+        console.error('Erro ao se registrar:', error.response?.data || error.message);
+      }
     }
   }
 };

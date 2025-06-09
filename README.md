@@ -1,56 +1,52 @@
-# Programação para Web INE5646
+# Projeto - Conversor JSON e Visualizador de Dados
 
-Funcionalidade (em construção):
-- Exportar dados de json para odt, csv, xlsx (ou outro formato escolhido).
-- Preview do input do usuário.
-- Criar gráficos de acordo com o input do usuário.
-- Crud: cadastro de usuários. página de login.
+Este projeto tem como objetivo fornecer uma interface web para converter dados JSON em diversos formatos, visualizar os dados em gráficos personalizados e permitir a autenticação de usuários.
 
-Segurança:
-Testar vulnerabilidades. Mostrar vulnerabilidades (anaĺise de sistema existente/ comparação).
+---
 
-Servidor:
-idufsc.ufsc.br
+## Funcionalidades
 
-Stack/ Tecnologias:
-vue.js - frontend.
-quasar framework - scss.
-mongoDb - banco de dados.
-node 18 - (nvm use 18).
+- **Exportar Dados**  
+  Converta JSON para os seguintes formatos:
+  - ODT
+  - CSV
+  - XLSX
 
-## Install the dependencies
+- **Gráficos Personalizados**  
+  Geração de gráficos com base nos dados fornecidos pelo usuário.
+
+- **Cadastro e Login de Usuários**  
+  Sistema de autenticação com página de login e registro.
+
+
+## Servidor
+
+Aws ec2
+Nginx
+
+## Stack Tecnológica
+
+- **Frontend:**
+  - [Vue.js](https://vuejs.org/)
+  - [Quasar Framework](https://quasar.dev/) (CSS e UI)
+
+- **Backend:**
+  - [Node.js 18](https://nodejs.org/) (via NVM)
+  - [MongoDB](https://www.mongodb.com/)
+
+---
+
+## Como Rodar o Projeto Localmente
+
 ```bash
-yarn
-# or
+# Instale o Quasar globalmente
+npm install -g @quasar/cli
+
+# Ative a versão correta do Node.js
+nvm use 18
+
+# Instale as dependências na raiz do projeto
 npm install
-```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
+# Inicie o servidor de desenvolvimento local
 quasar dev
-```
-
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
