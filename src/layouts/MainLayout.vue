@@ -25,20 +25,24 @@
       bordered
       class="bg-secondary text-white"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Menu
-        </q-item-label>
+      <div class="column justify-between full-height">
+        <q-list>
+          <q-item-label header>Menu</q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-          @link-clicked="leftDrawerOpen = false"
-        />
-      </q-list>
+          <EssentialLink
+            v-for="link in linksList.filter(link => link.title !== 'Login')"
+            :key="link.title"
+            v-bind="link"
+            @link-clicked="leftDrawerOpen = false"
+          />
+        </q-list>
+        <q-list>
+          <EssentialLink class="q-mb-md"
+            v-bind="linksList.find(link => link.title === 'Login')"
+            @link-clicked="leftDrawerOpen = false"
+          />
+        </q-list>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -48,7 +52,6 @@
 </template>
 
 <script>
-//import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 
 export default {
@@ -58,29 +61,35 @@ export default {
   data() {
     return {
       linksList: [
-        // {
-        //   title: 'Github',
-        //   caption: 'github.com/INE5646',
-        //   icon: 'code',
-        //   link: 'https://github.com/Diego-Azevedo/INE5646'
-        // },
         {
           title: 'Home',
           caption: 'Home page',
           icon: 'home',
-          link: '/'
+          link: '/index'
         },
         {
-          title: 'Login',
-          caption: 'Login area',
-          icon: 'login',
-          link: '/login'
+          title: 'Github',
+          caption: 'github.com/INE5646',
+          icon: 'code',
+          link: 'https://github.com/Diego-Azevedo/INE5646'
         },
         {
           title: 'About',
           caption: 'About the project',
           icon: 'info',
           link: '/about'
+        },
+        {
+          title: 'Profile',
+          caption: 'User profile',
+          icon: 'person',
+          link: '/profile'
+        },
+        {
+          title: 'Login',
+          caption: 'Login area',
+          icon: 'login',
+          link: '/login'
         },
       ],
       leftDrawerOpen: false,
@@ -92,8 +101,5 @@ export default {
       this.leftDrawerOpen = !this.leftDrawerOpen
     }
   },
-  // created() {
-  //   // Lógica adicional pode ser adicionada aqui, se necessário
-  // }
 }
 </script>
