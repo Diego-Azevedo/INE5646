@@ -27,6 +27,7 @@
               outlined
               dense
               class="q-mb-md bg-primary"
+              color="grey-8"
             />
             <span>Password</span>
             <q-input
@@ -35,6 +36,7 @@
               outlined
               dense
               class="q-mb-lg bg-primary"
+              color="grey-8"
             />
             <q-btn
               type="submit"
@@ -65,6 +67,7 @@
               outlined
               dense
               class="q-mb-md bg-primary borderless"
+              color="grey-8"
             />
             <span>Email</span>
             <q-input
@@ -73,6 +76,7 @@
               outlined
               dense
               class="q-mb-md bg-primary"
+              color="grey-8"
             />
             <span>Password</span>
             <q-input
@@ -81,14 +85,16 @@
               outlined
               dense
               class="q-mb-md bg-primary"
+              color="grey-8"
             />
             <span>Confirm Password</span>
             <q-input
-              v-model="register.confirmPassword"
+              v-model="register.confirmpassword"
               type="password"
               outlined
               dense
               class="q-mb-lg bg-primary"
+              color="grey-8"
             />
             <q-btn
               type="submit"
@@ -114,8 +120,11 @@
 </template>
 
 <script>
-import { login, register } from '../api/auth';
+import { loginUser, registerUser, logoutUser} from '../api/auth';
 export default {
+  created() {
+    logoutUser();
+  },
   data() {
     return {
       isLogin: true,
@@ -127,49 +136,35 @@ export default {
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmpassword: ''
       }
     };
   },
   methods: {
     async onLogin() {
       try {
-        const response = await login(this.login);
-        console.log('Login bem-sucedido:', response.data);
-
-        this.$q.notify({
-          type: 'positive',
-          message: 'Login bem-sucedido!'
-        });
-        setTimeout(() => {
-          this.$router.push({ name: 'IndexPage' });
-        }, 2000);
+        await loginUser(this.login);
+        this.$router.push({ name: 'IndexPage' });
       } catch (error) {
         this.$q.notify({
           type: 'negative',
-          message: error.response?.data?.message || 'Erro ao fazer login'
+          message: error.response?.data?.message || 'Register error'
         });
-        console.error('Erro ao fazer login:', error.response?.data || error.message);
       }
     },
     async onRegister() {
       try {
-        const response = await register(this.login);
-        console.log('Registro bem-sucedido:', response.data);
-
+        const response = await registerUser(this.register);
         this.$q.notify({
           type: 'positive',
-          message: 'Você se cadastrou!'
+          message: response?.data?.message || 'You have registered!'
         });
-        setTimeout(() => {
-          this.$router.push({ name: 'IndexPage' });
-        }, 2000);
+        this.isLogin = true;
       } catch (error) {
         this.$q.notify({
           type: 'negative',
-          message: error.response?.data?.message || 'Erro ao se registrar'
+          message: error.response?.data?.message || 'Register error'
         });
-        console.error('Erro ao se registrar:', error.response?.data || error.message);
       }
     }
   }

@@ -123,6 +123,7 @@ import { Codemirror } from 'vue-codemirror';
 import { convertJsonToCsv } from 'src/utils/jsonToCsv';
 import { csvToTable } from 'src/utils/csvToTable';
 import { csvToGraphic } from 'src/utils/csvToGraphic';
+import { fetchPrivateUser, logoutUser} from '../api/auth';
 import Papa from 'papaparse';
 import jsonExamples from 'src/data/jsonExamples';
 import html2pdf from 'html2pdf.js';
@@ -131,6 +132,16 @@ export default {
   name: 'IndexPage',
   components: {
     Codemirror
+  },
+  async mounted() {
+    try {
+      const response = await fetchPrivateUser();
+      console.log('Usuário autenticado:', response.data.user);
+    } catch (error) {
+      console.error('Token inválido ou expirado', error);
+      logoutUser();
+      this.$router.push({ name: 'LoginPage' });
+    }
   },
   data() {
     return {
