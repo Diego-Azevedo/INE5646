@@ -3,10 +3,11 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', redirect: '/login' },
+      { path: '', redirect: '/index' },
       { path: 'login', name: 'LoginPage', component: () => import('pages/LoginPage.vue') },
       { path: 'index', name: 'IndexPage', component: () => import('pages/IndexPage.vue') },
-      { path: 'about', name: 'AboutPage', component: () => import('pages/AboutPage.vue') }
+      { path: 'about', name: 'AboutPage', component: () => import('pages/AboutPage.vue') },
+      { path: 'profile', name: 'ProfilePage', component: () => import('pages/ProfilePage.vue') },
     ]
   },
   {
