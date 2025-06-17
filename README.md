@@ -1,40 +1,52 @@
-# Projeto - Conversor JSON e Visualizador de Dados
+# Frontend - Conversor JSON e Visualizador de Dados
 
-Este projeto tem como objetivo fornecer uma interface web para converter dados JSON em diversos formatos, visualizar os dados em gráficos personalizados e permitir a autenticação de usuários.
+## Sistema de Conversão, Visualização e Autenticação de Usuários
 
----
+Este projeto fornece uma interface web para conversão de dados JSON em diferentes formatos, visualização por meio de gráficos personalizados e autenticação de usuários.
 
 ## Funcionalidades
 
-- **Exportar Dados**  
-  Converta JSON para os seguintes formatos:
-  - ODT
-  - CSV
-  - XLSX
+- **Exportação de Dados**
+  - Conversão de JSON para os formatos:
+    - CSV
+    - Tabela (HTML Table)
+    - Gráfico (Chart)
 
-- **Gráficos Personalizados**  
-  Geração de gráficos com base nos dados fornecidos pelo usuário.
+- **Gráficos Personalizados**
+  - Geração de gráficos dinâmicos com base nos dados inseridos.
 
-- **Cadastro e Login de Usuários**  
-  Sistema de autenticação com página de login e registro.
+- **Cadastro e Login de Usuários**
+  - Sistema de autenticação com páginas de registro e login.
 
+## Infraestrutura de Produção
 
-## Servidor
-
-Aws ec2
-Nginx
+- AWS EC2
+- Nginx
+- PM2 (Process Manager)
 
 ## Stack Tecnológica
 
 - **Frontend:**
-  - [Vue.js](https://vuejs.org/)
-  - [Quasar Framework](https://quasar.dev/) (CSS e UI)
+  - Vue.js
+  - Quasar Framework (UI e CSS)
 
 - **Backend:**
-  - [Node.js 18](https://nodejs.org/) (via NVM)
-  - [MongoDB](https://www.mongodb.com/)
+  - Node.js 18
+  - MongoDB
 
----
+## Configuração da URL da API
+
+O projeto utiliza uma variável de ambiente para definir a URL da API.
+
+No arquivo `.env` da raiz do frontend, é possível alternar entre o ambiente de produção e o ambiente local:
+
+```env
+# API de produção
+VUE_APP_API_URL=https://jsonconvert.org/api
+
+# API local
+VUE_APP_API_URL=http://localhost:3000
+
 
 ## Como Rodar o Projeto Localmente
 
