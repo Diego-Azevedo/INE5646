@@ -1,10 +1,10 @@
 <template>
   <q-page class="responsive-container bg-primary">
     <div class="q-px-md q-pb-md q-gutter-sm text-center">
-      <h1 class="text-white q-mb-none">
+      <h1 class="text-black q-mb-none text-h4 text-md-h3 text-lg-h2">
         Convert JSON to CSV, Table or Chart
       </h1>
-      <p class="text-white">
+      <p>
         Convert JSON into csv, table, or charts with ease and speed.
       </p>
       <!-- convert options -->
