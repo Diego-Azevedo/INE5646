@@ -81,4 +81,19 @@ export async function updateUserPassword(data) {
   });
 }
 
+export async function deleteAccount() {
+  const userId = getUserId();
+  const token = getToken();
+
+  if (!userId || !token) {
+    throw new Error('UserId ou token não encontrado');
+  }
+
+  return api.delete(`/user/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export { getToken, getUserId };
