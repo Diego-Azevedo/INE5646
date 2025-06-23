@@ -141,6 +141,9 @@ export default {
     };
   },
   methods: {
+    sanitize(input) {
+      return input.replace(/<[^>]*>?/gm, '');
+    },
     async onLogin() {
       try {
         await loginUser(this.login);
@@ -154,6 +157,7 @@ export default {
     },
     async onRegister() {
       try {
+        this.register.name = this.sanitize(this.register.name);
         const response = await registerUser(this.register);
         this.$q.notify({
           type: 'positive',

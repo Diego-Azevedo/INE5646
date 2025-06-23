@@ -77,7 +77,7 @@
 
             <q-input
               v-model="user.email"
-              label="Email"
+              type="email"
               filled
               class="q-mt-sm bg-primary"
               input-class="text-black"
@@ -169,9 +169,16 @@ export default {
   },
   methods: {
     async saveChanges() {
+      if (!this.validateEmail(this.user.email)) {
+        this.$q.notify({
+          type: 'negative',
+          message: 'Invalid email address.'
+        })
+        return 
+      }
       try {
         await updateUserProfile({
-          name: this.user.name,
+          name: this.sanitize(this.user.name),
           email: this.user.email,
         });
         Notify.create({ type: 'positive', message: 'User profile update successfully!' });
@@ -219,7 +226,14 @@ export default {
       } finally {
         this.confirmDelete = false;
       }
-    }
+    },
+    sanitize(input) {
+      return input.replace(/<[^>]*>?/gm, '');
+    },
+    validateEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    },
   },
   computed: {
     formattedCreatedAt() {
